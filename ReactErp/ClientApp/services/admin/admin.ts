@@ -2,10 +2,15 @@ import { baseResult } from "@/types/baseResult";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Admin } from "./adminApiInterface";
 
-const URL = '/';
+const { env } = require('process');
+
+console.log(env)
+
+
+const URL = 'https://localhost:7014';
 export const adminApi = createApi({
     reducerPath: "adminApi",
-    baseQuery: fetchBaseQuery({ baseUrl: URL }),
+    baseQuery: fetchBaseQuery(),
     tagTypes: ["admin"],
     endpoints: (builder) => ({
         getAdmin: builder.query<baseResult<any>, { id: string; }>({
