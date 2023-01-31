@@ -7,10 +7,16 @@ import { Login } from "./loginApiInterface";
 
 export const loginApi = createApi({
     reducerPath: "loginApi",
-    baseQuery: function (args: any, api: BaseQueryApi, extraOptions: {}): MaybePromise<QueryReturnValue<unknown, unknown, {}>> {
-        throw new Error("Function not implemented.");
-    },
-    endpoints: (builder)=>({
-        postLogin:builder.query()
+    baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+    tagTypes: ["login"],
+    endpoints: (builder) => ({
+        postLogin: builder.mutation({
+            query: (initialpost) => ({ url: `account/login`, method: "POST", body: initialpost }),
+            invalidatesTags: (response) => [{ type: 'login', id: 'gggg' }],
+        }),
     })
 });
+
+export const {
+    usePostLoginMutation,
+} = loginApi
